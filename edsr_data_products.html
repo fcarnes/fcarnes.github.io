@@ -1,48 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EDSR Data Products</title>
+  <meta name="description" content="Free access to EDSR data products: IPLS, Reports, and Dashboards." />
   <style>
-    body { font-family: Arial, sans-serif; margin: 2rem; }
-    h1 { color: #2a4d69; }
-    a { color: #1e88e5; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .figure { margin: 1.5rem 0; }
-    img { max-width: 100%; height: auto; }
+    :root{
+      --bg:#0f172a;         /* sidebar background */
+      --ink:#0b1020;        /* page background */
+      --card:#ffffff;       /* content cards */
+      --link:#2563eb;       /* link color */
+      --muted:#64748b;      /* muted text */
+      --accent:#e2e8f0;     /* sidebar borders/text */
+      --active:#1d4ed8;     /* active pill */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:linear-gradient(180deg,#f8fafc,#eef2f7);
+      color:#0f172a;
+      line-height:1.5;
+    }
+
+    /* Layout */
+    .layout{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      min-height:100vh;
+    }
+    @media (max-width: 900px){
+      .layout{grid-template-columns:1fr}
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky; top:0; align-self:start;
+      height:100vh; overflow:auto;
+      background:var(--bg); color:var(--accent);
+      padding:22px 18px;
+      border-right:1px solid #0b122d;
+    }
+    @media (max-width: 900px){
+      .sidebar{height:auto; position:relative; border-right:none}
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:700; letter-spacing:.3px; color:white; margin-bottom:18px;
+    }
+    .brand .dot{width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+    .subtitle{color:#a8b3cf; font-size:.9rem; margin:0 0 18px}
+    .nav{
+      display:flex; flex-direction:column; gap:8px; margin:14px 0 24px;
+    }
+    .nav a{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border-radius:10px; text-decoration:none;
+      color:#dbe3ff; border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+    }
+    .nav a:hover{background:rgba(255,255,255,.06)}
+    .nav a.active{
+      border-color:rgba(37,99,235,.6);
+      box-shadow:0 0 0 3px rgba(37,99,235,.15) inset;
+      background:rgba(37,99,235,.15);
+      color:#fff;
+    }
+    .mini{
+      margin-top:auto; font-size:.85rem; color:#9fb0d3;
+      border-top:1px dashed rgba(255,255,255,.12); padding-top:14px;
+    }
+
+    /* Topbar (mobile) */
+    .topbar{
+      display:none; gap:10px; padding:10px; background:var(--bg)
+    }
+    @media (max-width: 900px){
+      .topbar{display:flex; position:sticky; top:0; z-index:5}
+      .burger{padding:10px 12px;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;background:transparent}
+    }
+
+    /* Content */
+    .content{
+      padding:36px 42px; max-width:1100px; width:100%;
+    }
+    @media (max-width: 600px){
+      .content{padding:22px}
+    }
+    .hero{
+      background:var(--card); border-radius:16px; padding:22px; border:1px solid #e5eaf2;
+      box-shadow:0 6px 20px rgba(2,6,23,.05); margin-bottom:20px;
+    }
+    .hero h1{margin:0 0 6px; font-size:1.8rem}
+    .hero p{margin:0; color:var(--muted)}
+    .cards{
+      display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:20px 0 28px;
+    }
+    @media (max-width: 900px){.cards{grid-template-columns:1fr}}
+    .card{
+      background:var(--card); border:1px solid #e5eaf2; border-radius:14px; padding:16px;
+      box-shadow:0 6px 18px rgba(2,6,23,.05);
+    }
+    .card h3{margin:0 0 8px}
+    .card p{margin:0 0 10px; color:var(--muted)}
+    .card a{color:var(--link); text-decoration:none}
+    .pill{
+      display:inline-block; font-size:.8rem; padding:2px 8px; border-radius:999px; background:#eef2ff; border:1px solid #cad6ff; margin-left:6px;
+    }
+
+    /* Section blocks */
+    section{scroll-margin-top:90px}
+    .section{
+      margin:28px 0; padding:20px; background:var(--card); border:1px solid #e5eaf2; border-radius:14px;
+    }
+    .section h2{margin:0 0 10px}
+    .list{margin:0; padding-left:18px}
+    .figure{
+      margin:14px 0; border:1px dashed #d8deea; padding:10px; border-radius:10px; text-align:center; color:var(--muted)
+    }
+    .callout{
+      margin-top:14px; padding:12px 14px; background:#f1f5ff; border-left:4px solid var(--active); border-radius:8px;
+    }
+
+    /* Simple show/hide of sidebar on mobile */
+    .sidebar[data-collapsed="true"]{display:none}
   </style>
 </head>
 <body>
-  <h1>EDSR Data Products</h1>
-  <p>Welcome! Here are links and resources to explore our data</p>
-  <p></p>
-  <p>The Economic, Demographic, and Statistical Research (EDSR) unit in the Department of
-Management and Budget conducts quantitative research to create data and provide technical
-expertise that supports county agencies and initiatives and public information inquiries.</p>
-  <h2>Data Links</h2>
-  <ul>
-    <li><a href="https://example.com/data1.csv">Dataset 1 (CSV)</a></li>
-    <li><a href="https://example.com/api">API Access</a></li>
-    <li><a href="https://example.com/dashboard">Interactive Dashboard</a></li>
-  </ul>
-
-  <h2>Figures</h2>
-  <div class="figure">
-    <img src="figure1.png" alt="Figure 1 description">
-    <p>Figure 1: Example data visualization.</p>
+  <!-- Mobile topbar -->
+  <div class="topbar">
+    <button class="burger" aria-controls="sidebar" aria-expanded="true" id="toggleSidebar">Menu</button>
+    <div style="color:#fff;font-weight:600">EDSR Data Products</div>
   </div>
 
-  <div class="figure">
-    <img src="figure2.png" alt="Figure 2 description">
-    <p>Figure 2: Another key insight.</p>
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" data-collapsed="false" aria-label="Section navigation">
+      <div class="brand"><span class="dot" aria-hidden="true"></span>EDSR Data</div>
+      <p class="subtitle">Free access to our datasets and visuals.</p>
+      <nav class="nav" role="navigation">
+        <a href="#ipls" class="tab" data-tab="ipls" aria-current="page">IPLS</a>
+        <a href="#reports" class="tab" data-tab="reports">Reports</a>
+        <a href="#dashboards" class="tab" data-tab="dashboards">Dashboards</a>
+      </nav>
+      <div class="mini">
+        <div><strong>API Base:</strong> <code>/api/v1</code></div>
+        <div><strong>Contact:</strong> data@yourdomain.org</div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content" id="main">
+      <div class="hero" role="banner">
+        <h1>Explore EDSR Data Products <span class="pill">Free</span></h1>
+        <p>Browse sample figures and jump straight to downloads, reports, and interactive dashboards.</p>
+      </div>
+
+      <!-- Quick cards -->
+      <div class="cards" aria-label="Quick links">
+        <div class="card">
+          <h3>IPLS</h3>
+          <p>Core indicators & public links.</p>
+          <a href="#ipls">Go to IPLS →</a>
+        </div>
+        <div class="card">
+          <h3>Reports</h3>
+          <p>Published PDFs and briefs.</p>
+          <a href="#reports">Go to Reports →</a>
+        </div>
+        <div class="card">
+          <h3>Dashboards</h3>
+          <p>Interactive visuals.</p>
+          <a href="#dashboards">Go to Dashboards →</a>
+        </div>
+      </div>
+
+      <!-- Sections -->
+      <section id="ipls" class="section" aria-labelledby="ipls-title">
+        <h2 id="ipls-title">IPLS</h2>
+        <p>Open datasets and endpoints for the IPLS series.</p>
+        <ul class="list">
+          <!-- Replace hrefs with your real links -->
+          <li><a href="https://example.com/data/ipls_latest.csv">IPLS Latest (CSV)</a></li>
+          <li><a href="https://example.com/api/ipls?limit=100">API: <code>/api/ipls?limit=100</code></a></li>
+          <li><a href="https://example.com/metadata/ipls">Data Dictionary & Metadata</a></li>
+        </ul>
+        <div class="figure" role="img" aria-label="Placeholder figure for IPLS">
+          <em>Figure placeholder — replace with <code>img</code> tag or embedded chart.</em><br/>
+          <!-- Example: <img src="assets/ipls_overview.png" alt="IPLS overview chart"> -->
+        </div>
+        <div class="callout">
+          <strong>Tip:</strong> To fetch the last 30 days: <code>/api/ipls?since=30d</code>
+        </div>
+      </section>
+
+      <section id="reports" class="section" aria-labelledby="reports-title">
+        <h2 id="reports-title">Reports</h2>
+        <p>Download recent publications and technical notes.</p>
+        <ul class="list">
+          <li><a href="https://example.com/reports/2025_q2_overview.pdf">Quarterly Overview (PDF)</a></li>
+          <li><a href="https://example.com/reports/methodology.pdf">Methodology Note (PDF)</a></li>
+          <li><a href="https://example.com/reports/faq.html">FAQ</a></li>
+        </ul>
+        <div class="figure" role="img" aria-label="Placeholder thumbnail strip for reports">
+          <em>Report thumbnails placeholder — link cover images here.</em>
+        </div>
+      </section>
+
+      <section id="dashboards" class="section" aria-labelledby="dashboards-title">
+        <h2 id="dashboards-title">Dashboards</h2>
+        <p>Interactive dashboards (hosted on your BI tool or custom app).</p>
+        <ul class="list">
+          <li><a href="https://example.com/dashboards/overview">Overview Dashboard</a></li>
+          <li><a href="https://example.com/dashboards/geo">Geospatial View</a></li>
+          <li><a href="https://example.com/dashboards/quality">Data Quality Monitor</a></li>
+        </ul>
+        <div class="figure" role="img" aria-label="Placeholder for embedded dashboard">
+          <em>Embed an iFrame from your BI tool here.</em><br/>
+          <!-- Example:
+          <iframe title="Overview Dashboard" src="https://your-bi.com/embed/xyz" width="100%" height="480" style="border:0;"></iframe>
+          -->
+        </div>
+      </section>
+
+      <footer class="section" aria-label="Footer">
+        <p style="margin:0;color:var(--muted)">© <span id="year"></span> EDSR. Content licensed for public use. • <a href="https://example.com/terms">Terms</a></p>
+      </footer>
+    </main>
   </div>
 
-  <h2>How to Access the Data</h2>
-  <ol>
-    <li>Click on a dataset link above.</li>
-    <li>Download or view in your browser.</li>
-    <li>Use our API for programmatic access.</li>
-  </ol>
+  <script>
+    // Mobile sidebar toggle
+    const toggle = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    if (toggle){
+      toggle.addEventListener('click', () => {
+        const collapsed = sidebar.getAttribute('data-collapsed') === 'true';
+        sidebar.setAttribute('data-collapsed', collapsed ? 'false' : 'true');
+        toggle.setAttribute('aria-expanded', collapsed ? 'true' : 'false');
+      });
+    }
+
+    // Smooth scrolling for in-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', '#' + id);
+        }
+      });
+    });
+
+    // Active tab highlight on scroll
+    const sections = ['ipls','reports','dashboards'].map(id=>document.getElementById(id));
+    const links = new Map([...document.querySelectorAll('.nav a')].map(a=>[a.getAttribute('href').slice(1), a]));
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          links.forEach(a=>a.classList.remove('active'));
+          const id = entry.target.id;
+          const active = links.get(id);
+          if(active){ active.classList.add('active'); active.setAttribute('aria-current','page'); }
+        }
+      });
+    }, {root:null, rootMargin:'-40% 0px -55% 0px', threshold:0.01});
+    sections.forEach(s=>io.observe(s));
+
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
