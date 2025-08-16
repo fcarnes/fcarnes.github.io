@@ -152,20 +152,35 @@
 
     <!-- Main content -->
     <main class="content" id="main">
-      <div class="hero" role="banner">
-        <h1>Explore EDSR Data Products <span class="pill">public</span></h1>
-        <p>Browse sample figures and jump straight to downloads, reports, and interactive dashboards.</p>
-        <h4>The Economic, Demographic, and Statistical Research (EDSR) unit in the Department of
-Management and Budget conducts quantitative research to create data and provide technical
-expertise that supports county agencies and initiatives and public information inquiries.</h4>
-         <!-- Add your homepage link here -->
-  <p style="margin-top:14px;">
-    <a href="https://www.fairfaxcounty.gov/demographics/" target="_blank" 
-       style="display:inline-block; padding:10px 16px; background:#2563eb; color:#fff; text-decoration:none; border-radius:8px; font-weight:600;">
-      Visit Fairfax County Demographics Homepage →
-    </a>
-  </p>
-      </div>
+      <div class="hero" role="banner" style="display:flex; align-items:flex-start; gap:20px;">
+
+  <!-- Logo on the left -->
+  <div style="flex-shrink:0; display:flex; align-items:center;">
+    <img src="assets/logo.png" alt="EDSR Logo" 
+         style="height:auto; max-height:calc(1em + 1em + 8px); object-fit:contain; display:block;">
+  </div>
+
+  <!-- Text content on the right -->
+  <div>
+    <div class="hero-top-text">
+      <h1 style="margin:0;">Explore EDSR Data Products <span class="pill">public access</span></h1>
+      <p style="margin:4px 0 0;">Browse sample figures and jump straight to downloads, reports, and interactive dashboards.</p>
+    </div>
+
+    <h4 style="margin-top:16px;">The Economic, Demographic, and Statistical Research (EDSR) unit in the Department of
+    Management and Budget conducts quantitative research to create data and provide technical
+    expertise that supports county agencies and initiatives and public information inquiries.</h4>
+
+    <!-- Homepage button -->
+    <p style="margin-top:14px;">
+      <a href="https://www.fairfaxcounty.gov/demographics/" target="_blank" 
+         style="display:inline-block; padding:10px 16px; background:#2563eb; color:#fff; text-decoration:none; border-radius:8px; font-weight:600;">
+        Visit Fairfax County Demographics Homepage →
+      </a>
+    </p>
+  </div>
+
+</div>
 
       <!-- Quick cards -->
       <div class="cards" aria-label="Quick links">
@@ -193,9 +208,9 @@ expertise that supports county agencies and initiatives and public information i
 unit, household, and population.</p>
         <ul class="list">
           <!-- Replace hrefs with your real links -->
-          <li><a href="https://example.com/data/ipls_latest.csv">IPLS Latest (CSV)</a></li>
-          <li><a href="https://example.com/api/ipls?limit=100">API: <code>/api/ipls?limit=100</code></a></li>
-          <li><a href="https://example.com/metadata/ipls">Data Dictionary & Metadata</a></li>
+          <li><a href="https://www.fairfaxcounty.gov/demographics/reports">Demographic Reports (1973 - 2024)</a></li>
+          <li><a href="https://www.fairfaxcounty.gov/demographics/interactive-map-block-group">Demographic Mapper Application</a></li>
+          <li><a href="https://data-fairfaxcountygis.opendata.arcgis.com/search?tags=FFX-Demography">Fairfax County Open Geospatial Data (parcel level)</a></li>
         </ul>
         <div class="figure" role="img" aria-label="Placeholder figure for IPLS">
           <em>Figure placeholder — replace with <code>img</code> tag or embedded chart.</em><br/>
